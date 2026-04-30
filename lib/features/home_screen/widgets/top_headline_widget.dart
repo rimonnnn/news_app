@@ -5,16 +5,16 @@ import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
 
 class TopHeadlineWidget extends StatelessWidget {
-  final String title;
-  final String autherName;
-  final String date;
+  final String? title;
+  final String? autherName;
+  final String? date;
   final String? imageUrl;
   const TopHeadlineWidget({
     super.key,
     required this.title,
     required this.autherName,
     required this.date,
-    this.imageUrl,
+    required this.imageUrl,
   });
 
   @override
@@ -36,7 +36,7 @@ class TopHeadlineWidget extends StatelessWidget {
           ),
         ),
         HeightSpace(16),
-        Text(title, style: AppTextStyle.black18SemiBold),
+        Text(maxLines: 1, title ?? "", style: AppTextStyle.black18SemiBold),
 
         HeightSpace(12),
         Text("$autherName . $date", style: AppTextStyle.grey14Regular),

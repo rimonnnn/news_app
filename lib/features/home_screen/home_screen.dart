@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
+import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
+import 'package:news_app/features/home_screen/services/home_screen_services.dart';
 import 'package:news_app/features/home_screen/widgets/article_card_widget.dart';
 import 'package:news_app/features/home_screen/widgets/custom_category_item_widget.dart';
 import 'package:news_app/features/home_screen/widgets/top_headline_widget.dart';
@@ -15,6 +18,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,92 +40,91 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          HeightSpace(16),
-          Padding(
-            padding: EdgeInsetsDirectional.only(start: 32.sp),
-            child: SizedBox(
-              height: 60.h,
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  CustomCategoryItemWidget(text: "travel".tr()),
-                  CustomCategoryItemWidget(text: "technology".tr()),
-                  CustomCategoryItemWidget(text: "business".tr()),
-                  CustomCategoryItemWidget(text: "entertainment".tr()),
-                ],
-              ),
-            ),
-          ),
-          HeightSpace(24),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Column(
+      body: FutureBuilder(
+        future: HomeScreenServices().getTopHeadLineArtical(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(color: Colors.black),
+            );
+          }
+
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+
+          if (!snapshot.hasData) {
+            return Center(child: Text("no_results".tr()));
+          }
+
+          TopHeadLinesModel topHeadLinesModel =
+              snapshot.data! as TopHeadLinesModel;
+
+          if (topHeadLinesModel.totalResults == 0 ||
+              topHeadLinesModel.articles.isEmpty) {
+            return Center(child: Text("no_results".tr()));
+          }
+          if (snapshot.hasData) {
+            return Column(
               children: [
-                TopHeadlineWidget(
-                  title: 'The new Egyptian Museum',
-                  autherName: 'Rimon',
-                  date: 'Apr 2, 2026',
-                  // imageUrl:
-                  //     "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
+                HeightSpace(16),
+                Padding(
+                  padding: EdgeInsetsDirectional.only(start: 32.sp),
+                  child: SizedBox(
+                    height: 60.h,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        CustomCategoryItemWidget(text: "travel".tr()),
+                        CustomCategoryItemWidget(text: "technology".tr()),
+                        CustomCategoryItemWidget(text: "business".tr()),
+                        CustomCategoryItemWidget(text: "entertainment".tr()),
+                      ],
+                    ),
+                  ),
                 ),
+                HeightSpace(24),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w),
+                  child: Column(
+                    children: [
+                      TopHeadlineWidget(
+                        title: topHeadLinesModel.articles[0].title ?? "",
+                        autherName: topHeadLinesModel.articles[0].author ?? "",
+                        date: DateFormat(
+                          'yyyy-MM-dd - kk-mm',
+                        ).format(topHeadLinesModel.articles[0].publishedAt),
+                        imageUrl:
+                            topHeadLinesModel.articles[0].urlToImage ?? "",
+                      ),
+                    ],
+                  ),
+                ),
+                HeightSpace(29),
+                Expanded(
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 32.sp),
+                    itemCount: topHeadLinesModel.articles.length,
+                    itemBuilder: (context, index) {
+                      Article article = topHeadLinesModel.articles[index];
+                      return ArticleCardWidget(
+                        title: article.title ,
+                        autherName: article.author ?? "",
+                        date: DateFormat(
+                          'yyyy-MM-dd - kk:mm',
+                        ).format(article.publishedAt),
+                        imageUrl: topHeadLinesModel.articles[index].urlToImage,
+                      );
+                    },
+                  ),
+                ),
+                HeightSpace(24),
               ],
-            ),
-          ),
-          HeightSpace(29),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 32.sp),
-              children: [
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-                ArticleCardWidget(
-                  title: 'The new Egyptian museum',
-                  autherName: 'Rimon',
-                  date: 'April 2, 2026',
-                  imageUrl:
-                      "https://cdn.twocontinents.com/cdn-cgi/image/width=1920/https://cdn.twocontinents.com/we_know_the_opening_date_of_the_grand_egyptian_museum_b42cb729c6.jpg",
-                ),
-              ],
-            ),
-          ),
-          HeightSpace(24),
-        ],
+            );
+          }
+          return Center(child: Text("Something went wrong"));
+        },
       ),
     );
   }

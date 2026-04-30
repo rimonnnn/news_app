@@ -5,9 +5,9 @@ import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
 
 class ArticleCardWidget extends StatelessWidget {
-  final String title;
-  final String autherName;
-  final String date;
+  final String? title;
+  final String? autherName;
+  final String? date;
   final String? imageUrl;
   const ArticleCardWidget({
     super.key,
@@ -30,11 +30,21 @@ class ArticleCardWidget extends StatelessWidget {
             HeightSpace(16),
             SizedBox(
               width: 238.w,
-              child: Text(title, style: AppTextStyle.black18SemiBold),
+              child: Text(
+                maxLines: 2,
+                title ?? "",
+                style: AppTextStyle.black18SemiBold,
+              ),
             ),
 
             HeightSpace(12),
-            Text("$autherName . $date", style: AppTextStyle.grey14Regular),
+            SizedBox(
+              width: 238.sp,
+              child: Text(
+                "$autherName . $date",
+                style: AppTextStyle.grey14Regular,
+              ),
+            ),
           ],
         ),
 
