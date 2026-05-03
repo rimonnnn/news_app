@@ -5,8 +5,9 @@ import 'package:news_app/core/styles/app_text_style.dart';
 
 class CustomCategoryItemWidget extends StatelessWidget {
   final String text;
+  final Function() onTap;
 
-  const CustomCategoryItemWidget({super.key, required this.text});
+  const CustomCategoryItemWidget({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomCategoryItemWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {},
         child: OutlinedButton(
-          onPressed: () {},
+          onPressed: onTap,
           style: OutlinedButton.styleFrom(
             overlayColor: Color(0xffE9EEFA),
             backgroundColor: AppColors.whiteColor,

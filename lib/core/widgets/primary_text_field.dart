@@ -9,7 +9,10 @@ class PrimaryTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final int? maxLine;
+  final double? width;
+  final double? height;
   final TextInputType? keyboardType;
+  final Function(String)? onFieldSubmitted;
   const PrimaryTextField({
     super.key,
     this.hintText,
@@ -19,20 +22,27 @@ class PrimaryTextField extends StatelessWidget {
     this.validator,
     this.maxLine,
     this.keyboardType,
+    this.onFieldSubmitted,
+
+    this.width,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 331.w,
+      width: width ?? 331.w,
+      height: height ?? 50.h,
       child: TextFormField(
         keyboardType: keyboardType,
+        onFieldSubmitted: onFieldSubmitted,
         maxLines: maxLine ?? 1,
         controller: controller,
         validator: validator,
         cursorColor: AppColors.blackColor,
         obscureText: isPassword ?? false,
         decoration: InputDecoration(
+          
           filled: true,
           fillColor: Colors.white,
           contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
@@ -42,6 +52,7 @@ class PrimaryTextField extends StatelessWidget {
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
           ),
+          
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
             borderSide: BorderSide(color: Color(0xffE8ECF4), width: 1.sp),

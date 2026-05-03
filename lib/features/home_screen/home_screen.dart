@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:news_app/core/routing/app_routes.dart';
 import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
 import 'package:news_app/features/home_screen/services/home_screen_services.dart';
 import 'package:news_app/features/home_screen/widgets/article_card_widget.dart';
 import 'package:news_app/features/home_screen/widgets/custom_category_item_widget.dart';
+import 'package:news_app/features/home_screen/widgets/search_text_field_widget.dart';
 import 'package:news_app/features/home_screen/widgets/top_headline_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,14 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsetsDirectional.only(start: 32.sp),
           child: Text("explore".tr(), style: AppTextStyle.titleStyle),
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.sp),
-            child: IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          ),
-        ],
+        actions: [SearchTextFieldWidget()],
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<ArticalsModel>(
         future: HomeScreenServices().getTopHeadLineArtical(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -57,11 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(child: Text("no_results".tr()));
           }
 
-          TopHeadLinesModel topHeadLinesModel =
-              snapshot.data! as TopHeadLinesModel;
+          ArticalsModel articalsModel = snapshot.data!;
 
-          if (topHeadLinesModel.totalResults == 0 ||
-              topHeadLinesModel.articles.isEmpty) {
+          if (articalsModel.totalResults == 0 ||
+              articalsModel.articles.isEmpty) {
             return Center(child: Text("no_results".tr()));
           }
           if (snapshot.hasData) {
@@ -76,10 +72,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       children: [
-                        CustomCategoryItemWidget(text: "travel".tr()),
-                        CustomCategoryItemWidget(text: "technology".tr()),
-                        CustomCategoryItemWidget(text: "business".tr()),
-                        CustomCategoryItemWidget(text: "entertainment".tr()),
+                        CustomCategoryItemWidget(
+                          text: "travel".tr(),
+                          onTap: () {
+                            GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: "travel".tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          text: "technology".tr(),
+                          onTap: () {
+                            GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: "technology".tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          text: "business".tr(),
+                          onTap: () {
+                            GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: "business".tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          text: "entertainment".tr(),
+                          onTap: () {
+                            GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: "travel".tr(),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -90,13 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       TopHeadlineWidget(
-                        title: topHeadLinesModel.articles[0].title ?? "",
-                        autherName: topHeadLinesModel.articles[0].author ?? "",
+                        title: articalsModel.articles[0].title ?? "",
+                        autherName: articalsModel.articles[0].author ?? "",
                         date: DateFormat(
                           'yyyy-MM-dd - kk-mm',
-                        ).format(topHeadLinesModel.articles[0].publishedAt),
-                        imageUrl:
-                            topHeadLinesModel.articles[0].urlToImage ?? "",
+                        ).format(articalsModel.articles[0].publishedAt),
+                        imageUrl: articalsModel.articles[0].urlToImage,
                       ),
                     ],
                   ),
@@ -105,16 +132,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 32.sp),
-                    itemCount: topHeadLinesModel.articles.length,
+                    itemCount: articalsModel.articles.length,
                     itemBuilder: (context, index) {
-                      Article article = topHeadLinesModel.articles[index];
+                      Article article = articalsModel.articles[index];
                       return ArticleCardWidget(
-                        title: article.title ,
-                        autherName: article.author ?? "",
-                        date: DateFormat(
-                          'yyyy-MM-dd - kk:mm',
-                        ).format(article.publishedAt),
-                        imageUrl: topHeadLinesModel.articles[index].urlToImage,
+                        article: article,
                       );
                     },
                   ),

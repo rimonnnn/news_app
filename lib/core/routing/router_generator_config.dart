@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news_app/core/routing/app_routes.dart';
+import 'package:news_app/features/home_screen/artical_details_screen.dart';
 import 'package:news_app/features/home_screen/home_screen.dart';
-
+import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
+import 'package:news_app/features/search_result_screen/search_result_screen.dart';
 
 class RouterGeneratorConfig {
   static GoRouter goRouter = GoRouter(
@@ -12,28 +14,30 @@ class RouterGeneratorConfig {
         path: AppRoutes.homeScreen,
         name: AppRoutes.homeScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return HomeScreen ();
+          return HomeScreen();
         },
       ),
       GoRoute(
         path: AppRoutes.searchScreen,
         name: AppRoutes.searchScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return Container ();
+          return Container();
         },
       ),
       GoRoute(
         path: AppRoutes.searchResultScreen,
         name: AppRoutes.searchResultScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return Container ();
+          String query = state.extra as String;
+          return SearchResultScreen(query: query);
         },
       ),
-    GoRoute(
+      GoRoute(
         path: AppRoutes.articalDetailsScreen,
         name: AppRoutes.articalDetailsScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return Container ();
+          Article article = state.extra as Article;
+          return ArticalDetailsScreen(article: article);
         },
       ),
     ],
