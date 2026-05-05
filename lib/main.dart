@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/core/constantes/constantes.dart';
 import 'package:news_app/core/networking/dio_helper.dart';
 import 'package:news_app/core/routing/router_generator_config.dart';
 
@@ -15,7 +16,7 @@ void main() async {
       path:
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
-      // startLocale: Locale("ar"),
+      startLocale: Locale(AppConstantes.lang),
       child: MyApp(),
     ),
   );

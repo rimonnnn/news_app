@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/core/constantes/constantes.dart';
 import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
@@ -16,6 +17,19 @@ class SearchResultScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (context.locale.languageCode == "en") {
+                context.setLocale(Locale("ar"));
+              } else {
+                context.setLocale(Locale("en"));
+              }
+              AppConstantes.lang = context.locale.languageCode;
+            },
+            icon: Icon(Icons.language_outlined, size: 30),
+          ),
+        ],
         backgroundColor: Colors.white,
         title: Text("Search results", style: AppTextStyle.black16Medium),
         centerTitle: true,
@@ -53,9 +67,7 @@ class SearchResultScreen extends StatelessWidget {
                     itemCount: articalsModel.articles.length,
                     itemBuilder: (context, index) {
                       Article article = articalsModel.articles[index];
-                      return ArticleCardWidget(
-                        article: article,
-                      );
+                      return ArticleCardWidget(article: article);
                     },
                   ),
                 ),
