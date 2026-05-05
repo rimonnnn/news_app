@@ -1,16 +1,185 @@
-# news_app
+# 📰 News App
 
-A new Flutter project.
+A modern Flutter news application that displays the latest headlines, allows users to search for news by keyword, browse categories, and read article details in a clean responsive UI.
 
-## Getting Started
+The app is built using Flutter and integrates with NewsAPI to fetch real-time news data.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Fetch latest top headlines from NewsAPI
+- Search for articles by keyword
+- Browse news by categories:
+  - Travel
+  - Technology
+  - Business
+  - Entertainment
+- View full article details
+- Cached network images for better performance
+- Responsive UI using Flutter ScreenUtil
+- Multi-language support using Easy Localization
+- Arabic and English localization support
+- Clean routing using GoRouter
+- Organized feature-based project structure
+- Network logging using Pretty Dio Logger
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📸 Screenshots
+
+| Home Screen | Arabic Home | Search Screen |
+|------------|-------------|---------------|
+| <img src="./screenshotes/home_screen.png" width="250"> | <img src="./screenshotes/arabic_home.png" width="250"> | <img src="./screenshotes/search_screen.png" width="250"> |
+
+| Arabic Search Results | Article Details |
+|----------------------|-----------------|
+| <img src="./screenshotes/arabic_search_results.png" width="250"> | <img src="./screenshotes/article_details.png" width="250"> |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Flutter**
+- **Dart**
+- **Dio** — API requests
+- **NewsAPI** — news data source
+- **GoRouter** — navigation and routing
+- **Easy Localization** — multi-language support
+- **Flutter ScreenUtil** — responsive design
+- **Cached Network Image** — image caching
+- **Google Fonts**
+- **Intl**
+- **Pretty Dio Logger**
+
+---
+
+## 📂 Project Structure
+
+```text
+lib/
+├── core/
+│   ├── constantes/
+│   ├── networking/
+│   ├── routing/
+│   ├── styles/
+│   └── widgets/
+│
+├── features/
+│   ├── home_screen/
+│   │   ├── models/
+│   │   ├── services/
+│   │   ├── widgets/
+│   │   ├── home_screen.dart
+│   │   └── artical_details_screen.dart
+│   │
+│   └── search_result_screen/
+│       ├── services/
+│       └── search_result_screen.dart
+│
+└── main.dart
+
+
+🚀 Getting Started
+1. Clone the repository
+git clone https://github.com/rimonnnn/news_app.git
+2. Navigate to the project folder
+cd news_app
+3. Install dependencies
+flutter pub get
+4. Run the app
+flutter run
+🔑 API Configuration
+
+This app uses NewsAPI
+ to fetch news articles.
+
+The API base URL used in the project:
+
+https://newsapi.org/v2/
+
+Main endpoints:
+
+top-headlines
+everything
+
+Important: For production or public repositories, do not hardcode your API key inside the source code. Use environment variables or a secure configuration file instead.
+
+🌍 Localization
+
+The app supports localization using easy_localization.
+
+Supported languages:
+
+English
+Arabic
+
+Translation files are located in:
+
+assets/translations/
+🧭 App Flow
+Home Screen
+    ├── Displays latest top headlines
+    ├── Shows article cards
+    ├── Provides category navigation
+    └── Allows search by keyword
+
+Search Result Screen
+    └── Displays articles based on user search query
+
+Article Details Screen
+    └── Shows article image, title, author, date, and description
+📦 Dependencies
+dependencies:
+  cached_network_image
+  dio
+  easy_localization
+  flutter_screenutil
+  go_router
+  google_fonts
+  intl
+  pretty_dio_logger
+📌 Screens
+Home Screen
+
+Displays latest news headlines and category shortcuts.
+
+Search Results Screen
+
+Shows articles based on the searched keyword or selected category.
+
+Article Details Screen
+
+Displays detailed information about the selected article.
+
+⚙️ Main Functionalities
+Fetch Top Headlines
+
+The app sends a GET request to the top-headlines endpoint and retrieves the latest news based on country.
+
+Search News
+
+The app sends a GET request to the everything endpoint using the user search query.
+
+Article Navigation
+
+When the user taps on an article card, the selected article object is passed to the details screen using GoRouter.
+
+🧪 Future Improvements
+Add state management such as Cubit, Bloc, Riverpod, or Provider
+Add saved/bookmarked articles
+Add dark mode
+Add better error UI
+Add loading skeletons
+Move API key to environment variables
+Add pagination for large result sets
+Add unit and widget tests
+Add article sharing feature
+Open full article source link in browser
+👨‍💻 Author
+
+Rimon Abdelmasih
+
+GitHub: rimonnnn
+LinkedIn: Rimon Abdelmasih
+Portfolio: rimonnnn.github.io
