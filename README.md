@@ -28,12 +28,12 @@ The app is built using Flutter and integrates with NewsAPI to fetch real-time ne
 
 ## 📸 Screenshots
 
-| Home Screen | Arabic Home | Search Screen |
-|------------|-------------|---------------|
+| Home Screen                                            | Arabic Home                                            | Search Screen                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------------- |
 | <img src="./screenshotes/home_screen.png" width="250"> | <img src="./screenshotes/arabic_home.png" width="250"> | <img src="./screenshotes/search_screen.png" width="250"> |
 
-| Arabic Search Results | Article Details |
-|----------------------|-----------------|
+| Arabic Search Results                                            | Article Details                                            |
+| ---------------------------------------------------------------- | ---------------------------------------------------------- |
 | <img src="./screenshotes/arabic_search_results.png" width="250"> | <img src="./screenshotes/article_details.png" width="250"> |
 
 ---
@@ -78,46 +78,79 @@ lib/
 │       └── search_result_screen.dart
 │
 └── main.dart
+```
 
+---
 
-🚀 Getting Started
-1. Clone the repository
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
 git clone https://github.com/rimonnnn/news_app.git
-2. Navigate to the project folder
-cd news_app
-3. Install dependencies
-flutter pub get
-4. Run the app
-flutter run
-🔑 API Configuration
+```
 
-This app uses NewsAPI
- to fetch news articles.
+### 2. Navigate to the project folder
+
+```bash
+cd news_app
+```
+
+### 3. Install dependencies
+
+```bash
+flutter pub get
+```
+
+### 4. Run the app
+
+```bash
+flutter run
+```
+
+---
+
+## 🔑 API Configuration
+
+This app uses [NewsAPI](https://newsapi.org/) to fetch news articles.
 
 The API base URL used in the project:
 
+```text
 https://newsapi.org/v2/
+```
 
 Main endpoints:
 
+```text
 top-headlines
 everything
+```
 
-Important: For production or public repositories, do not hardcode your API key inside the source code. Use environment variables or a secure configuration file instead.
+> Important: For production or public repositories, do not hardcode your API key inside the source code. Use environment variables or a secure configuration file instead.
 
-🌍 Localization
+---
 
-The app supports localization using easy_localization.
+## 🌍 Localization
+
+The app supports localization using `easy_localization`.
 
 Supported languages:
 
-English
-Arabic
+- English
+- Arabic
 
 Translation files are located in:
 
+```text
 assets/translations/
-🧭 App Flow
+```
+
+---
+
+## 🧭 App Flow
+
+```text
 Home Screen
     ├── Displays latest top headlines
     ├── Shows article cards
@@ -129,9 +162,14 @@ Search Result Screen
 
 Article Details Screen
     └── Shows article image, title, author, date, and description
-📦 Dependencies
-dependencies:
-  cached_network_image
+```
+
+---
+
+## 📦 Dependencies
+
+```yaml
+dependencies: cached_network_image
   dio
   easy_localization
   flutter_screenutil
@@ -139,47 +177,67 @@ dependencies:
   google_fonts
   intl
   pretty_dio_logger
-📌 Screens
-Home Screen
+```
+
+---
+
+## 📌 Screens
+
+### Home Screen
 
 Displays latest news headlines and category shortcuts.
 
-Search Results Screen
+### Search Results Screen
 
 Shows articles based on the searched keyword or selected category.
 
-Article Details Screen
+### Article Details Screen
 
 Displays detailed information about the selected article.
 
-⚙️ Main Functionalities
-Fetch Top Headlines
+---
 
-The app sends a GET request to the top-headlines endpoint and retrieves the latest news based on country.
+## ⚙️ Main Functionalities
 
-Search News
+### Fetch Top Headlines
 
-The app sends a GET request to the everything endpoint using the user search query.
+The app sends a GET request to the `top-headlines` endpoint and retrieves the latest news based on country.
 
-Article Navigation
+### Search News
+
+The app sends a GET request to the `everything` endpoint using the user search query.
+
+### Article Navigation
 
 When the user taps on an article card, the selected article object is passed to the details screen using GoRouter.
 
-🧪 Future Improvements
-Add state management such as Cubit, Bloc, Riverpod, or Provider
-Add saved/bookmarked articles
-Add dark mode
-Add better error UI
-Add loading skeletons
-Move API key to environment variables
-Add pagination for large result sets
-Add unit and widget tests
-Add article sharing feature
-Open full article source link in browser
-👨‍💻 Author
+---
 
-Rimon Abdelmasih
+## 🧪 Future Improvements
 
-GitHub: rimonnnn
-LinkedIn: Rimon Abdelmasih
-Portfolio: rimonnnn.github.io
+- Add state management such as Cubit, Bloc, Riverpod, or Provider
+- Add saved/bookmarked articles
+- Add dark mode
+- Add better error UI
+- Add loading skeletons
+- Move API key to environment variables
+- Add pagination for large result sets
+- Add unit and widget tests
+- Add article sharing feature
+- Open full article source link in browser
+
+---
+
+## 👨‍💻 Author
+
+**Rimon Abdelmasih**
+
+- GitHub: [rimonnnn](https://github.com/rimonnnn)
+- LinkedIn: [Rimon Abdelmasih](https://www.linkedin.com/in/rimon-abdelmasih)
+- Portfolio: [rimonnnn.github.io](https://rimonnnn.github.io/)
+
+---
+
+## 📄 License
+
+This project is open source and available for learning and portfolio purposes.
