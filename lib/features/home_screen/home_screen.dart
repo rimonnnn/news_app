@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color(0xffE9EEFA),
         toolbarHeight: 120.h,
@@ -135,9 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: articalsModel.articles.length,
                     itemBuilder: (context, index) {
                       Article article = articalsModel.articles[index];
-                      return ArticleCardWidget(
-                        article: article,
-                      );
+                      return ArticleCardWidget(article: article);
                     },
                   ),
                 ),

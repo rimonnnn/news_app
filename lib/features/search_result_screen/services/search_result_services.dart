@@ -13,7 +13,7 @@ class SearchResultServices {
         query: {
           "apiKey": AppConstantes.newsApiKey,
           "q": query,
-          "language": AppConstantes.lang,
+          "language": AppConstantes.lang.isEmpty ? "en" : AppConstantes.lang,
         },
       );
       if (response.statusCode == 200) {

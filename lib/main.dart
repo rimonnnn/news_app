@@ -16,7 +16,7 @@ void main() async {
       path:
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
-      startLocale: Locale(AppConstantes.lang),
+      startLocale: const Locale("en"),
       child: MyApp(),
     ),
   );
