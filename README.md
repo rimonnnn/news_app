@@ -116,6 +116,8 @@ lib/
     └── artical_details_screen/
         └── artical_details_screen.dart
 ---
+___
+
 
 ## 🚀 Getting Started
 
