@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news_app/core/routing/app_routes.dart';
-import 'package:news_app/features/home_screen/artical_details_screen.dart';
+import 'package:news_app/features/artical_details_screen/artical_details_screen.dart';
+import 'package:news_app/features/home_screen/cubit/home_cubit.dart';
 import 'package:news_app/features/home_screen/home_screen.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
+import 'package:news_app/features/search_result_screen/cubit/search_cubit.dart';
 import 'package:news_app/features/search_result_screen/search_result_screen.dart';
 
 class RouterGeneratorConfig {
@@ -14,7 +17,10 @@ class RouterGeneratorConfig {
         path: AppRoutes.homeScreen,
         name: AppRoutes.homeScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return HomeScreen();
+          return BlocProvider(
+            create: (context) => HomeCubit(),
+            child: HomeScreen(),
+          );
         },
       ),
       GoRoute(
@@ -29,7 +35,10 @@ class RouterGeneratorConfig {
         name: AppRoutes.searchResultScreen,
         builder: (BuildContext context, GoRouterState state) {
           String query = state.extra as String;
-          return SearchResultScreen(query: query);
+          return BlocProvider(
+            create: (context) => SearchCubit(),
+            child: SearchResultScreen(query: query),
+          );
         },
       ),
       GoRoute(

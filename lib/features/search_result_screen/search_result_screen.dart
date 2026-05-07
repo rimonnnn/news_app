@@ -1,16 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/constantes/constantes.dart';
 import 'package:news_app/core/styles/app_text_style.dart';
 import 'package:news_app/core/widgets/spacing_widgets.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
 import 'package:news_app/features/home_screen/widgets/article_card_widget.dart';
-import 'package:news_app/features/search_result_screen/services/search_result_services.dart';
+import 'package:news_app/features/search_result_screen/cubit/search_cubit.dart';
+import 'package:news_app/features/search_result_screen/cubit/search_states.dart';
+import 'package:news_app/features/search_result_screen/repo/search_result_repo.dart';
 
-class SearchResultScreen extends StatelessWidget {
+class SearchResultScreen extends StatefulWidget {
   final String query;
   const SearchResultScreen({super.key, required this.query});
+
+  @override
+  State<SearchResultScreen> createState() => _SearchResultScreenState();
+}
+
+class _SearchResultScreenState extends State<SearchResultScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SearchCubit>().getArticles(widget.query);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,30 +51,16 @@ class SearchResultScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: FutureBuilder(
-        future: SearchResultServices().searchItemByName(query),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      body: BlocBuilder<SearchCubit, SearchStates>(
+        builder: (context, state) {
+          if (state is LoadingArtialesSate) {
             return Center(
               child: CircularProgressIndicator(color: Colors.black),
             );
-          }
-
-          if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
-          }
-
-          if (!snapshot.hasData) {
-            return Center(child: Text("no_results".tr()));
-          }
-
-          ArticalsModel articalsModel = snapshot.data! as ArticalsModel;
-
-          if (articalsModel.totalResults == 0 ||
-              articalsModel.articles.isEmpty) {
-            return Center(child: Text("no_results".tr()));
-          }
-          if (snapshot.hasData) {
+          } else if (state is ErrorArticlesState) {
+            return Center(child: Text(state.error.toString()));
+          } else if (state is SucsessArticlesState) {
+            ArticalsModel articalsModel = state.searchArticles;
             return Column(
               children: [
                 Expanded(
@@ -74,8 +76,9 @@ class SearchResultScreen extends StatelessWidget {
                 HeightSpace(24),
               ],
             );
+          } else {
+            return SizedBox(child: Center(child: Text("Something Went Wrong")));
           }
-          return Center(child: Text("Something went wrong"));
         },
       ),
     );

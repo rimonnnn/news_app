@@ -5,7 +5,7 @@ import 'package:news_app/core/networking/api_end_points.dart';
 import 'package:news_app/core/networking/dio_helper.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
 
-class SearchResultServices {
+class SearchResultRepo {
   searchItemByName(String query) async {
     try {
       final response = await DioHelper.getRequest(
