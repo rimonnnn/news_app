@@ -6,14 +6,17 @@ import 'package:news_app/core/networking/dio_helper.dart';
 import 'package:news_app/features/home_screen/models/top_head_lines_model.dart';
 
 class SearchResultRepo {
-  searchItemByName(String query) async {
+  searchItemByName({
+    required String query,
+    required String languageCode,
+  }) async {
     try {
       final response = await DioHelper.getRequest(
         endPoint: ApiEndPoints.searchUrl,
         query: {
           "apiKey": AppConstantes.newsApiKey,
           "q": query,
-          "language": AppConstantes.lang.isEmpty ? "en" : AppConstantes.lang,
+          "language": languageCode,
         },
       );
       if (response.statusCode == 200) {

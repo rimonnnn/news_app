@@ -24,7 +24,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SearchCubit>().getArticles(widget.query);
+      context.read<SearchCubit>().getArticles(
+        widget.query,
+        context.locale.languageCode,
+      );
     });
   }
 
@@ -35,15 +38,21 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              if (context.locale.languageCode == "en") {
-                context.setLocale(Locale("ar"));
-              } else {
-                context.setLocale(Locale("en"));
-              }
-              AppConstantes.lang = context.locale.languageCode;
+            onPressed: () async {
+              final newLocale = context.locale.languageCode == "en"
+                  ? const Locale("ar")
+                  : const Locale("en");
+
+              await context.setLocale(newLocale);
+
+              if (!mounted) return;
+
+              context.read<SearchCubit>().getArticles(
+                widget.query,
+                newLocale.languageCode,
+              );
             },
-            icon: Icon(Icons.language_outlined, size: 30),
+            icon: const Icon(Icons.language_outlined, size: 30),
           ),
         ],
         backgroundColor: Colors.white,

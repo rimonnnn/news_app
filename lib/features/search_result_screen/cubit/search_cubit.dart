@@ -6,10 +6,13 @@ class SearchCubit extends Cubit<SearchStates> {
   SearchCubit() : super(ArticlesInatialeState());
   final SearchResultRepo searchRepo = SearchResultRepo();
 
-  Future<void> getArticles(String query) async {
+  Future<void> getArticles(String query, String languageCode) async {
     emit(LoadingArtialesSate());
     try {
-      final response = await searchRepo.searchItemByName( query);
+      final response = await searchRepo.searchItemByName(
+        languageCode: languageCode,
+        query: query,
+      );
       emit(SucsessArticlesState(response));
     } catch (e) {
       emit(ErrorArticlesState(e.toString()));
