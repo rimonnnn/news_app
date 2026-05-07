@@ -23,6 +23,7 @@ The app is built using Flutter and integrates with NewsAPI to fetch real-time ne
 - Clean routing using GoRouter
 - Organized feature-based project structure
 - Network logging using Pretty Dio Logger
+- Cubit for state management
 
 ---
 
@@ -51,6 +52,7 @@ The app is built using Flutter and integrates with NewsAPI to fetch real-time ne
 - **Google Fonts**
 - **Intl**
 - **Pretty Dio Logger**
+- **Bloc** — state management
 
 ---
 
@@ -177,6 +179,7 @@ dependencies: cached_network_image
   google_fonts
   intl
   pretty_dio_logger
+  flutter_bloc
 ```
 
 ---
@@ -215,7 +218,7 @@ When the user taps on an article card, the selected article object is passed to 
 
 ## 🧪 Future Improvements
 
-- Add state management such as Cubit, Bloc, Riverpod, or Provider
+
 - Add saved/bookmarked articles
 - Add dark mode
 - Add better error UI
