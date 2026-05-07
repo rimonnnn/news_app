@@ -62,21 +62,46 @@ The app is built using Flutter and integrates with NewsAPI to fetch real-time ne
 lib/
 ├── core/
 │   ├── constantes/
+│   │   └── constantes.dart
+│   │
 │   ├── networking/
+│   │   ├── api_end_points.dart
+│   │   └── dio_helper.dart
+│   │
 │   ├── routing/
+│   │   ├── app_routes.dart
+│   │   └── router_generator_config.dart
+│   │
 │   ├── styles/
+│   │   ├── app_colors.dart
+│   │   ├── app_fonts.dart
+│   │   └── app_text_style.dart
+│   │
 │   └── widgets/
+│       ├── primary_text_field.dart
+│       └── spacing_widgets.dart
 │
 ├── features/
 │   ├── home_screen/
 │   │   ├── models/
+│   │   │   └── top_head_lines_model.dart
+│   │   │
 │   │   ├── services/
+│   │   │   └── home_screen_services.dart
+│   │   │
 │   │   ├── widgets/
-│   │   ├── home_screen.dart
-│   │   └── artical_details_screen.dart
+│   │   │   ├── article_card_widget.dart
+│   │   │   ├── custom_category_item_widget.dart
+│   │   │   ├── search_text_field_widget.dart
+│   │   │   └── top_headline_widget.dart
+│   │   │
+│   │   ├── artical_details_screen.dart
+│   │   └── home_screen.dart
 │   │
 │   └── search_result_screen/
 │       ├── services/
+│       │   └── search_result_services.dart
+│       │
 │       └── search_result_screen.dart
 │
 └── main.dart
