@@ -56,10 +56,12 @@ The app is built using Flutter and integrates with NewsAPI to fetch real-time ne
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-```text
+```txt
 lib/
+├── main.dart
+│
 ├── core/
 │   ├── constantes/
 │   │   └── constantes.dart
@@ -81,32 +83,38 @@ lib/
 │       ├── primary_text_field.dart
 │       └── spacing_widgets.dart
 │
-├── features/
-│   ├── home_screen/
-│   │   ├── models/
-│   │   │   └── top_head_lines_model.dart
-│   │   │
-│   │   ├── services/
-│   │   │   └── home_screen_services.dart
-│   │   │
-│   │   ├── widgets/
-│   │   │   ├── article_card_widget.dart
-│   │   │   ├── custom_category_item_widget.dart
-│   │   │   ├── search_text_field_widget.dart
-│   │   │   └── top_headline_widget.dart
-│   │   │
-│   │   ├── artical_details_screen.dart
-│   │   └── home_screen.dart
-│   │
-│   └── search_result_screen/
-│       ├── services/
-│       │   └── search_result_services.dart
-│       │
-│       └── search_result_screen.dart
-│
-└── main.dart
-```
-
+└── features/
+    ├── home_screen/
+    │   ├── cubit/
+    │   │   ├── home_cubit.dart
+    │   │   └── home_states.dart
+    │   │
+    │   ├── models/
+    │   │   └── top_head_lines_model.dart
+    │   │
+    │   ├── repo/
+    │   │   └── home_repo.dart
+    │   │
+    │   ├── widgets/
+    │   │   ├── article_card_widget.dart
+    │   │   ├── custom_category_item_widget.dart
+    │   │   ├── search_text_field_widget.dart
+    │   │   └── top_headline_widget.dart
+    │   │
+    │   └── home_screen.dart
+    │
+    ├── search_result_screen/
+    │   ├── cubit/
+    │   │   ├── search_cubit.dart
+    │   │   └── search_states.dart
+    │   │
+    │   ├── repo/
+    │   │   └── search_result_repo.dart
+    │   │
+    │   └── search_result_screen.dart
+    │
+    └── artical_details_screen/
+        └── artical_details_screen.dart
 ---
 
 ## 🚀 Getting Started
